@@ -1,0 +1,1 @@
+This code is ,based on https://github.com/RAKWireless/RAK2245-RAK831-LoRaGateway-RPi-Raspbian-OS, customized for [Sixfab Lora Gateway Dev Kit](https://sixfab.com/product/lora-rpi-cellular-gateway-dev-kit/) product. 
