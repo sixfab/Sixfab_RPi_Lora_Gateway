@@ -25,9 +25,9 @@ if [ ! -d "/usr/local/rak/gateway-config-info" ]; then mkdir "/usr/local/rak/gat
 
 # Try to get gateway ID from MAC address
 # First try eth0, if that does not exist, try wlan0 (for RPi Zero)
-GATEWAY_EUI_NIC="wwan0"
+GATEWAY_EUI_NIC="eth0"
 if [[ `grep "$GATEWAY_EUI_NIC" /proc/net/dev` == "" ]]; then
-    GATEWAY_EUI_NIC="eth0"
+    GATEWAY_EUI_NIC="wlan0"
 fi
 
 if [[ `grep "$GATEWAY_EUI_NIC" /proc/net/dev` == "" ]]; then
@@ -115,27 +115,22 @@ LOCAL_CONFIG_FILE=$INSTALL_DIR/packet_forwarder/lora_pkt_fwd/local_conf.json
 
     echo -e "{\n\t\"gateway_conf\": {\n\t\t\"gateway_ID\": \"$GATEWAY_EUI\" \n\t}\n}" >$LOCAL_CONFIG_FILE
 
-echo "Gateway EUI is: $GATEWAY_EUI"
-echo "The hostname is: $NEW_HOSTNAME"
-echo "Open TTN console and register your gateway using your EUI: https://console.thethingsnetwork.org/gateways"
-echo
-echo "Installation completed."
+GATEWAY_INFO=$INSTALL_DIR/gateway-info
 
-INSTALLER_DIR="../../"
-> $INSTALLER_DIR/gateway-eui
+echo -e > $GATEWAY_INFO 
+echo "--------------------------------------------------------" >> $GATEWAY_INFO
+echo "Gateway EUI is: $GATEWAY_EUI" >> $GATEWAY_INFO
+echo "--------------------------------------------------------" >> $GATEWAY_INFO
 
-echo "Gateway EUI is: $GATEWAY_EUI" >> $INSTALLER_DIR/gateway-eui
-echo "The hostname is: $NEW_HOSTNAME" >> $INSTALLER_DIR/gateway-eui
+echo "Open TTN console and register your gateway using your EUI: https://console.thethingsnetwork.org/gateways" >> $GATEWAY_INFO
+echo >> $GATEWAY_INFO
 
-echo "Open TTN console and register your gateway using your EUI: 
-      
-https://console.thethingsnetwork.org/gateways" >> $SCRIPT_DIR/gateway-eui
-#cat $SCRIPT_DIR/gateway-eui
 
 # Start packet forwarder as a service
 #cp ./start.sh $INSTALL_DIR/bin/
 cp $SCRIPT_DIR/ttn-gateway.service /lib/systemd/system/
 systemctl enable ttn-gateway.service
+systemctl start ttn-gateway.service
 
 # add config "dtoverlay=pi3-disable-bt" to config.txt
 linenum=`sed -n '/dtoverlay=pi3-disable-bt/=' /boot/config.txt`
