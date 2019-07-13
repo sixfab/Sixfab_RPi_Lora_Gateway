@@ -1,0 +1,5 @@
+#!/bin/sh
+
+VER=`cat /usr/bin/gateway-version.txt`
+
+echo "Sixfab Lora Gateway $VER"

@@ -3,7 +3,7 @@
 # take recovery of system files
 RECOVERY_DIR="/opt/ttn_gateway_recovery"
 mkdir $RECOVERY_DIR
-cp /etc/dhcpcd.conf $RECOVERY_DIR
+cp /etc/dhcpcd.conf $RECOVERY_DIR/dhcpcd.conf
 
 # internet connection
 QMI_PATH="./Sixfab_QMI_Installer/"

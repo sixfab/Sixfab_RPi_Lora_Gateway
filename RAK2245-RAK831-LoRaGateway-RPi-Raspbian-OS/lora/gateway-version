@@ -1,5 +1,0 @@
-#!/bin/sh
-
-VER=`cat /usr/bin/gateway-version.txt`
-
-echo "rakwireless gateway 2245 version $VER"
