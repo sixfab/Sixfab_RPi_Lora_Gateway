@@ -87,7 +87,7 @@ echo "Installing dependencies..."
 apt-get install git minicom dialog -y
 
 # Install LoRaWAN packet forwarder repositories
-INSTALL_DIR="/opt/ttn-gateway"
+INSTALL_DIR=/opt/ttn-gateway
 if [ ! -d "$INSTALL_DIR" ]; then mkdir $INSTALL_DIR; fi
 pushd $INSTALL_DIR
 
