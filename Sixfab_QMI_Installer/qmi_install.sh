@@ -10,16 +10,15 @@ YELLOW='\033[1;33m'
 RED='\033[0;31m'
 SET='\033[0m'
 
-# clean old installation for new one. 
+INS_DIR=/opt/qmi_files
+mkdir -p $INS_DIR
 
+# clean old installation for new one. 
 systemctl stop qmi_reconnect.service
 systemctl disable qmi_reconnect.service
-
-if [ -d "/home/pi/files" ]; then rm -rf /home/pi/files ; fi # for old directory 
+if [ -d "/home/pi/files" ]; then rm -rf /home/pi/files ; fi # for old directory
 if [ -d "$INS_DIR" ]; then rm -rf $INS_DIR; fi
 
-INS_DIR=/usr/local/files
-mkdir -p $INS_DIR
 
 echo -e "${YELLOW}Change directory to $INS_DIR ${SET}"
 pushd $INS_DIR
@@ -55,14 +54,17 @@ echo -e "${YELLOW}Copying udhcpc default script${SET}"
 mkdir -p /usr/share/udhcpc
 cp -r  $INS_DIR/quectel-CM/default.script /usr/share/udhcpc/
 chmod +x /usr/share/udhcpc/default.script
+popd
 
 echo -e "${YELLOW}Change directory to /home/pi/files/drivers${SET}"
-cd $INS_DIR/drivers
+pushd $INS_DIR/drivers
 make && make install
+popd
 
 echo -e "${YELLOW}Change directory to /home/pi/files/quectel-CM${SET}"
-cd $INS_DIR/quectel-CM
+pushd $INS_DIR/quectel-CM
 make
+popd
 
 echo -e "${YELLOW}After reboot please follow commands mentioned below${SET}"
 echo -e "${YELLOW}go to $INS_DIR/quectel-CM and run sudo ./quectel-CM -s [YOUR APN] for manual operation${SET}"

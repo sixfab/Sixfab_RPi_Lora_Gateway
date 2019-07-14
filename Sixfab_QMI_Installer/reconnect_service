@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 ExecStart=/bin/sh /usr/src/qmi_reconnect.sh
-WorkingDirectory=/usr/local/files/quectel-CM/
+WorkingDirectory=/opt/qmi_files/quectel-CM/
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
