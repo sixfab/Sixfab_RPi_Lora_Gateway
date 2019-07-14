@@ -17,11 +17,11 @@ SET='\033[0m'
 QMI_PATH=./Sixfab_QMI_Installer/
 pushd $QMI_PATH
 
-sudo chmod +x qmi_install.sh
-sudo chmod +x install_auto_connect.sh
+chmod +x qmi_install.sh
+chmod +x install_auto_connect.sh
 
-sudo ./qmi_install.sh
-sudo ./install_auto_connect.sh
+./qmi_install.sh
+./install_auto_connect.sh
 
 popd
 
@@ -29,14 +29,14 @@ popd
 LORA_PATH=./lora
 pushd $LORA_PATH
 
-sudo chmod +x install.sh
-sudo ./install.sh
+chmod +x install.sh
+./install.sh
 
 popd
 
-# change routing table permanently
-echo "interface wwan0;" >> /etc/dhcpcd.conf
-echo "metric 200;" >> /etc/dhcpcd.conf
+pushd $QMI_PATH
+./make_wwan0_default.sh
+popd
 
 echo "Routing table is changed permanently"
 echo "Given priority to wwan0 interface for cellular connection"

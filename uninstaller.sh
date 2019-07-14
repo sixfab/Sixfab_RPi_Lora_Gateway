@@ -32,6 +32,6 @@ rm -rf /opt/ttn-gateway
 
 # remove qmi interface
 echo -e "${YELLOW}Clearing qmi Files${SET}"
-rm -rf /home/pi/files
+rm -rf /opt/qmi_files
 
 echo -e "${YELLOW}All Done!${SET}"
